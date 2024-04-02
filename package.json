@@ -1,0 +1,25 @@
+{
+  "name": "kvest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node main.js",
+    "start:dev": "nodemon main.js"
+  },
+  "keywords": [
+    "mrk",
+    "2k9392"
+  ],
+  "author": "stanislavwork@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.11",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.1",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
