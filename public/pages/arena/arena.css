@@ -18,6 +18,15 @@ img.background {
     z-index: -1;
 }
 
+.qrcode {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    background-color: #ffffff;
+    border-radius: 42px;
+    padding: 30px;
+}
+
 /* Title */
 
 .title {

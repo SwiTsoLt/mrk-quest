@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +14,19 @@
     <script src="./scripts/hero.js" defer></script>
     <script src="./scripts/index.js" defer></script>
 </head>
+
 <body>
     <img class="background" src="../../image/scene/dungen.jpg" alt="Dungen">
     <div class="title">
         <h1>МРК Квест</h1>
     </div>
     <div class="wrapper">
+        <div class="qrcode">
+            <img id='barcode' src="https://api.qrserver.com/v1/create-qr-code/?data=https://mrk-quest.onrender.com/&amp;size=200x200" alt=""
+                title="HELLO" width="200" height="200" />
+        </div>
         <div id="arena"></div>
     </div>
 </body>
+
 </html>

@@ -32,12 +32,12 @@ function updateArena() {
     maxHealth: 1000,
     avatarSrc: "../../image/creature/enemy/0.gif",
     position: {
-      x: `${window.innerWidth - 450}px`,
+      x: `${window.innerWidth - 500}px`,
       y: `-40px`,
     },
     size: {
       width: "auto",
-      height: "400px",
+      height: "500px",
     },
   });
 
