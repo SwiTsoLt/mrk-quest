@@ -1,25 +1,31 @@
 class Entity {
+    #name;
     #health;
     #maxHealth;
     #healthColor;
     #avatarSrc;
     #position;
     #size;
+    #isEnemy = false;
 
     constructor({
+        name,
         health,
         maxHealth,
         healthColor,
         avatarSrc,
         position,
         size,
+        isEnemy,
     }) {
+        this.#name = name;
         this.#health = health;
         this.#maxHealth = maxHealth;
         this.#healthColor = healthColor;
         this.#avatarSrc = avatarSrc;
         this.#position = position;
         this.#size = size;
+        this.#isEnemy = !!isEnemy;
     }
 
     getHealth() {
@@ -33,6 +39,7 @@ class Entity {
     getHTML() {
         const entityElem = document.createElement("div");
         entityElem.classList.add("entity");
+        this.#isEnemy && entityElem.classList.add("enemy");
 
         // Size
         entityElem.style.width = this.#size.width;
@@ -42,6 +49,11 @@ class Entity {
 
         entityElem.style.left = this.#position.x;
         entityElem.style.bottom = this.#position.y;
+
+        // Name
+
+        const nameElem = document.createElement("h2");
+        nameElem.innerText = this.#name;
 
         // Avatar
 
@@ -67,6 +79,7 @@ class Entity {
 
         // Append
 
+        entityElem.appendChild(nameElem);
         entityElem.appendChild(avatarElem);
         entityElem.appendChild(healthElem);
 

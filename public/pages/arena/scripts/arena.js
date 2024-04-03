@@ -12,4 +12,8 @@ class Arena {
     this.#entityList.push(entity);
     this.#elem.appendChild(entity.getHTML());
   }
+
+  clear() {
+    this.#elem.innerHTML = "";
+  }
 }

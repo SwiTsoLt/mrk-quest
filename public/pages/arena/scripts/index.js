@@ -1,64 +1,67 @@
+const socket = io();
 const arena = new Arena({
-    elem: document.querySelector("#arena"),
+  elem: document.getElementById("arena"),
 });
 
-const boss = new Boss({
-    health: 750,
+socket.on("connect", () => {
+  socket.emit("join-arena");
+});
+
+let clients = {};
+
+socket.on("update", (data) => {
+  clients = data.clients;
+  updateArena();
+});
+
+const AVATARS = [
+  "../../image/creature/hero/0.png",
+  "../../image/creature/hero/1.png",
+  "../../image/creature/hero/2.png",
+  "../../image/creature/hero/3.png",
+];
+
+function updateArena() {
+  arena.clear();
+
+  if (!clients) return;
+
+  const enemy = new Enemy({
+    name: "Динозаврик",
+    health: 1000,
     maxHealth: 1000,
-    avatarSrc: "./images/boss.gif",
+    avatarSrc: "../../image/creature/enemy/0.gif",
     position: {
-        x: `${window.innerWidth - 500}px`,
-        y: `0px`,
+      x: `${window.innerWidth - 450}px`,
+      y: `-40px`,
     },
     size: {
-        width: "500px",
-        height: "fit-content",
-    }
-});
-
-const hero = new Hero({
-    health: 80,
-    maxHealth: 100,
-    avatarSrc: "./images/hero_1.png",
-    position: {
-        x: "100px",
-        y: "-30px",
+      width: "auto",
+      height: "400px",
     },
-    size: {
-        width: "300px",
-        height: "500px",
-    }
-});
+  });
 
-const hero2 = new Hero({
-    health: 100,
-    maxHealth: 100,
-    avatarSrc: "./images/hero_2.png",
-    position: {
-        x: "330px",
-        y: "40px",
-    },
-    size: {
-        width: "500px",
-        height: "500px",
-    }
-});
+  Object.keys(clients).forEach((clientID, index) => {
+    const hero = new Hero({
+      name: clients[clientID].name,
+      health: 100,
+      maxHealth: 100,
+      avatarSrc: AVATARS[clients[clientID].avatar],
+      position: {
+        x: `${100 + 150 * index - 150 * 5 * Math.floor(index / 5)}px`,
+        y: index % 2 === 0 ? 0 : "40px",
+      },
+      size: {
+        width: "100px",
+        height: "200px",
+      },
+    });
 
-const hero3 = new Hero({
-    health: 100,
-    maxHealth: 100,
-    avatarSrc: "./images/hero_3.png",
-    position: {
-        x: "800px",
-        y: "0px",
-    },
-    size: {
-        width: "300px",
-        height: "500px",
-    }
-});
+    arena.add(hero);
+  });
 
-arena.add(boss);
-arena.add(hero2);
-arena.add(hero3);
-arena.add(hero);
+  arena.add(enemy);
+}
+
+window.addEventListener("resize", updateArena);
+updateArena();

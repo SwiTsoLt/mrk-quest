@@ -1,17 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Присоединиться</title>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="./hero.css">
+    <link rel="stylesheet" href="../../style.css" rel="preload">
+    <link rel="stylesheet" href="./hero.css" rel="preload">
+    <link rel="stylesheet" href="./hero.css" rel="preload">
+    <script src="../../lib/socket.io.min.js" defer></script>
+    <script src="./questions.js" defer></script>
     <script src="./hero.js" defer></script>
 </head>
+
 <body>
-    <img class="background" src="../../pages/arena/images/dungen.jpg" alt="Dungen">
-    <div class="wrapper">
-        
+    <img class="background" src="../../image/scene/dungen.jpg" alt="Dungen">
+    <div id="wrapper" class="wrapper">
+        <div class="avatar">
+            <div class="name">
+                <span id="avatar-name"></span>
+            </div>
+            <div class="image">
+                <img id="avatar-image" src="../../image/creature/hero/0.png" alt="Hero">
+            </div>
+            <div class="select">
+                <select name="avatar-image" id="avatar-selector">
+                    <option value="0">Герой 1</option>
+                    <option value="1">Герой 2</option>
+                    <option value="2">Герой 3</option>
+                    <option value="3">Герой 4</option>
+                </select>
+            </div>
+        </div>
+        <div class="fireballs">
+            <div id="spell-buttons" class="buttons">
+                <button value="0"><span>Заклинание 1<br>урон: 50</span></button>
+                <button value="1"><span>Заклинание 2<br>урон: 100</span></button>
+                <button value="2"><span>Заклинание 3<br>урон: 200</span></button>
+                <button value="3"><span>Заклинание 4<br>урон: 400</span></button>
+                <button value="4"><span>Заклинание 5<br>урон: 800</span></button>
+            </div>
+        </div>
+    </div>
+    <div id="question" class="question hidden" value="0">
+        <button id="close" class="close">Назад</button>
+        <div class="question-title">
+            <span id="question-title">Вопрос?</span>
+        </div>
+        <div id="result" class="result"></div>
+        <div id="answers" class="answers">
+            <button value="0">Ответ 1</button>
+            <button value="1">Ответ 2</button>
+            <button value="2">Ответ 3</button>
+            <button value="3">Ответ 4</button>
+            <button value="4">Ответ 5</button>
+        </div>
     </div>
 </body>
+
 </html>

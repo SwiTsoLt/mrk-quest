@@ -1,5 +1,6 @@
 class Hero extends Entity {
     constructor({
+        name,
         health,
         maxHealth,
         avatarSrc,
@@ -7,6 +8,7 @@ class Hero extends Entity {
         size,
     }) {
         super({
+            name,
             health,
             maxHealth,
             healthColor: "#00ff00",

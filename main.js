@@ -11,26 +11,57 @@ const app = express();
 
 app.use(express.static(STATIC_PATH));
 
-app.get("/api/login", (req, res) => {
-  const { code, name } = url.parse(req.url, true).query;
-
-  res.end();
+const server = app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server has been start on http://localhost:${PORT}`);
 });
 
 // Socket Io
 
-const server = app.listen(PORT, () => {
-  console.log(`Server has been start on http://localhost:${PORT}`);
-});
+const room = {
+  arena: null,
+  clients: {},
+};
+
+function updateArena() {
+  if (!room.arena) return;
+
+  room.arena.emit("update", {
+    clients: Object.keys(room.clients).reduce((clients, clientID) => {
+      clients[clientID] = {
+        name: room.clients[clientID].name,
+        avatar: room.clients[clientID].avatar,
+      };
+
+      return clients;
+    }, {}),
+  });
+}
 
 const io = require("socket.io")(server);
 
-io.on("connection", (client) => {
-    console.log(`connected ${client.id}`);
-  client.on("event", (data) => {
-    /* … */
+io.on("connection", (socket) => {
+  console.log(`connected ${socket.id}`);
+
+  socket.on("join-arena", () => {
+    room.arena = socket;
+    updateArena();
   });
-  client.on("disconnect", () => {
-    /* … */
+
+  socket.on("join-hero", (data) => {
+    room.clients[socket.id] = data;
+    updateArena();
+  });
+
+  socket.on("update-hero", (data) => {
+    room.clients[socket.id] = {
+      ...socket,
+      ...data,
+    };
+    updateArena();
+  });
+
+  socket.on("disconnect", () => {
+    delete room.clients[socket.id];
+    updateArena();
   });
 });

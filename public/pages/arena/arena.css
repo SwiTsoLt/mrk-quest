@@ -23,10 +23,10 @@ img.background {
 .title {
     position: absolute;
     left: 50%;
-    top: 120px;
+    top: 75px;
     transform: translateX(-50%);
     color: #ffffff;
-    font-size: 42px;
+    font-size: 32px;
     text-shadow: -8px 4px #303030;
 }
 
@@ -46,10 +46,24 @@ img.background {
     height: 100px;
 }
 
+.entity > h2 {
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: -50px;
+    transform: translateX(-50%);
+    max-width: 220px;
+    color: #ffffff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .entity > img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: center;
 }
 
 .entity > .health {
@@ -57,19 +71,20 @@ img.background {
     justify-content: center;
     align-items: center;
     position: absolute;
-    left: 50%;
-    top: -70px;
-    transform: translateX(-50%);
-    width: 300px;
-    height: 40px;
+    right: calc(-100% - 40px);
+    top: 36%;
+    transform: translateY(-50%) rotate(90deg);
+    width: 240px;
+    height: 30px;
     border: 3px solid #303030;
     border-radius: 16px;
     background-color: var(--health-color-opacity);
+    opacity: 0.8;
 }
 
 .entity > .health > span {
     display: block;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     z-index: 2;
 }
@@ -83,4 +98,10 @@ img.background {
     height: 100%;
     background-color: var(--health-color);
     border-radius: 13px;
+}
+
+.entity.enemy > .health  {
+    left: 25%;
+    top: 0;
+    transform: translateY(-50%);
 }
