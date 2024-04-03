@@ -7,12 +7,23 @@ socket.on("connect", () => {
   socket.emit("join-arena");
 });
 
+let enemyHealth = 1000;
 let clients = {};
 
 socket.on("update", (data) => {
+  enemyHealth = data.enemyHealth;
   clients = data.clients;
   updateArena();
 });
+
+socket.on("hero-attack", (data) => {
+
+});
+
+socket.on("enemy-attack", (clientID) => {
+
+});
+
 
 const AVATARS = [
   "../../image/creature/hero/0.png",
@@ -28,8 +39,8 @@ function updateArena() {
 
   const enemy = new Enemy({
     name: "Динозаврик",
-    health: 1000,
-    maxHealth: 1000,
+    health: enemyHealth,
+    maxHealth: 10000,
     avatarSrc: "../../image/creature/enemy/0.gif",
     position: {
       x: `${window.innerWidth - 500}px`,
@@ -42,22 +53,47 @@ function updateArena() {
   });
 
   Object.keys(clients).forEach((clientID, index) => {
-    const hero = new Hero({
-      name: clients[clientID].name,
-      health: 100,
-      maxHealth: 100,
-      avatarSrc: AVATARS[clients[clientID].avatar],
-      position: {
-        x: `${100 + 150 * index - 150 * 5 * Math.floor(index / 5)}px`,
-        y: index % 2 === 0 ? 0 : "40px",
-      },
-      size: {
-        width: "100px",
-        height: "200px",
-      },
-    });
+    if (index % 2 !== 0 && clients[clientID].health > 0) {
+      const hero = new Hero({
+        id: clientID,
+        name: clients[clientID].name,
+        health: clients[clientID].health,
+        maxHealth: 100,
+        avatarSrc: AVATARS[clients[clientID].avatar],
+        position: {
+          x: `${100 + 150 * index - 150 * 5 * Math.floor(index / 5)}px`,
+          y: index % 2 === 0 ? 0 : "40px",
+        },
+        size: {
+          width: "120px",
+          height: "250px",
+        },
+      });
+  
+      arena.add(hero);
+    }
+  });
 
-    arena.add(hero);
+  Object.keys(clients).forEach((clientID, index) => {
+    if (index % 2 === 0 && clients[clientID].health > 0) {
+      const hero = new Hero({
+        id: clientID,
+        name: clients[clientID].name,
+        health: 100,
+        maxHealth: 100,
+        avatarSrc: AVATARS[clients[clientID].avatar],
+        position: {
+          x: `${100 + 150 * index - 150 * 5 * Math.floor(index / 5)}px`,
+          y: index % 2 === 0 ? 0 : "40px",
+        },
+        size: {
+          width: "120px",
+          height: "250px",
+        },
+      });
+  
+      arena.add(hero);
+    }
   });
 
   arena.add(enemy);

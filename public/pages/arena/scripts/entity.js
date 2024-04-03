@@ -1,4 +1,5 @@
 class Entity {
+    #id;
     #name;
     #health;
     #maxHealth;
@@ -9,6 +10,7 @@ class Entity {
     #isEnemy = false;
 
     constructor({
+        id,
         name,
         health,
         maxHealth,
@@ -18,6 +20,7 @@ class Entity {
         size,
         isEnemy,
     }) {
+        this.#id = id;
         this.#name = name;
         this.#health = health;
         this.#maxHealth = maxHealth;

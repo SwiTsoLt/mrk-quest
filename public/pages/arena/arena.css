@@ -81,7 +81,7 @@ img.background {
     align-items: center;
     position: absolute;
     right: calc(-100% - 40px);
-    top: 36%;
+    top: 40%;
     transform: translateY(-50%) rotate(90deg);
     width: 240px;
     height: 30px;

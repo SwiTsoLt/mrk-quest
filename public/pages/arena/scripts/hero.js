@@ -1,5 +1,6 @@
 class Hero extends Entity {
     constructor({
+        id,
         name,
         health,
         maxHealth,
@@ -8,6 +9,7 @@ class Hero extends Entity {
         size,
     }) {
         super({
+            id,
             name,
             health,
             maxHealth,

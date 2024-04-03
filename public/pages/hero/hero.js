@@ -63,10 +63,12 @@ function onAnswer(event, level, answer) {
         result.innerHTML = "<p style='color:#15d118;'>Верно!</p>";
         closeQuestion();
         spell_buttons.querySelector(`button[value="${level}"]`).disabled = true;
-        window.navigator.vibrate([10, 10, 10]);
+        window.navigator.vibrate([20, 20, 20]);
+        socket.emit("hero-attack", { level: +level });
     } else {
         result.innerHTML = "<p style='color:#bf3621;'>Неверно!</p>";
-        window.navigator.vibrate(200);
+        window.navigator.vibrate(150);
+        socket.emit("enemy-attack");
     }
 }
 
