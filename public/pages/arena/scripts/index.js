@@ -52,12 +52,12 @@ function updateArena(clients) {
         maxHealth: 100,
         avatarSrc: AVATARS[clients[clientID].avatar],
         position: {
-          x: `${100 + 150 * index - 150 * 5 * Math.floor(index / 5)}px`,
+          x: `${300 + 150 * index - 150 * 5 * Math.floor(index / 5)}px`,
           y: index % 2 === 0 ? 0 : "40px",
         },
         size: {
-          width: "120px",
-          height: "250px",
+          width: "180px",
+          height: "350px",
         },
       });
   
@@ -70,12 +70,12 @@ function updateArena(clients) {
         maxHealth: 100,
         avatarSrc: AVATARS[clients[clientID].avatar],
         position: {
-          x: `${100 + 150 * index - 150 * 5 * Math.floor(index / 5)}px`,
+          x: `${300 + 150 * index - 150 * 5 * Math.floor(index / 5)}px`,
           y: index % 2 === 0 ? 0 : "40px",
         },
         size: {
-          width: "120px",
-          height: "250px",
+          width: "180px",
+          height: "350px",
         },
       });
   
