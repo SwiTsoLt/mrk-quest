@@ -57,7 +57,7 @@ function updateArena() {
         avatarSrc: AVATARS[clients[clientID].avatar],
         position: {
           x: `${300 + 150 * index - 150 * 5 * Math.floor(index / 5)}px`,
-          y: index % 2 === 0 ? 0 : "40px",
+          y: index % 2 === 0 ? "40px" : "80px",
         },
         size: {
           width: "180px",
@@ -75,7 +75,7 @@ function updateArena() {
         avatarSrc: AVATARS[clients[clientID].avatar],
         position: {
           x: `${300 + 150 * index - 150 * 5 * Math.floor(index / 5)}px`,
-          y: index % 2 === 0 ? 0 : "40px",
+          y: index % 2 === 0 ? "40px" : "80px",
         },
         size: {
           width: "180px",
