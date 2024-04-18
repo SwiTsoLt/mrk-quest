@@ -120,8 +120,12 @@ img.background {
     border-radius: 13px;
 }
 
+.entity.enemy > h2 {
+    top: -70px;
+}
+
 .entity.enemy > .health  {
-    left: 35%;
+    left: 25%;
     top: 0;
     transform: translateY(-50%);
 }

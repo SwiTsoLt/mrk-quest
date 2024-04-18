@@ -26,15 +26,13 @@ const AVATARS = [
 function updateArena(clients) {
   arena.clear();
 
-  if (!Object.keys(clients ?? {}).length) return;
-
   const enemy = new Enemy({
     name: "Динозаврик",
     health: enemyHealth,
     maxHealth: 1550,
     avatarSrc: enemyHealth > 0 ? "../../image/creature/enemy/0.gif" : "../../image/creature/enemy/bum.gif",
     position: {
-      x: `${window.innerWidth - 500}px`,
+      x: `${window.innerWidth - 600}px`,
       y: `-40px`,
     },
     size: {
@@ -42,6 +40,10 @@ function updateArena(clients) {
       height: "500px",
     },
   });
+
+  arena.add(enemy);
+
+  if (!Object.keys(clients ?? {}).length) return;
 
   Object.keys(clients).forEach((clientID, index) => {
     if (index % 2 !== 0) {
@@ -82,12 +84,10 @@ function updateArena(clients) {
       arena.add(hero);
     }
   });
-
-  arena.add(enemy);
 }
 
-window.addEventListener("resize", updateArena);
-updateArena();
+window.addEventListener("resize", () => updateArena({}));
+updateArena({});
 
 var Reset = function() {
   socket.emit("reset");
