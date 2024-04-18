@@ -32,7 +32,7 @@ img.background {
 .title {
     position: absolute;
     left: 50%;
-    top: 75px;
+    top: 130px;
     transform: translateX(-50%);
     color: #ffffff;
     font-size: 32px;
