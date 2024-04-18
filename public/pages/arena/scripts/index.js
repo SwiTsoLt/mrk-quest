@@ -8,12 +8,14 @@ socket.on("connect", () => {
 });
 
 let enemyHealth = 1550;
+let clients = {};
 
 socket.on("update", (data) => {
   enemyHealth = data.enemyHealth;
   document.getElementById("points").innerText = data.points;
   document.getElementById("errors").innerText = data.errors;
-  updateArena(data.clients);
+  clients = data.clients;
+  updateArena();
 });
 
 const AVATARS = [
@@ -23,7 +25,7 @@ const AVATARS = [
   "../../image/creature/hero/3.png",
 ];
 
-function updateArena(clients) {
+function updateArena() {
   arena.clear();
 
   const enemy = new Enemy({
@@ -86,8 +88,8 @@ function updateArena(clients) {
   });
 }
 
-window.addEventListener("resize", () => updateArena({}));
-updateArena({});
+window.addEventListener("resize", updateArena);
+updateArena();
 
 var Reset = function() {
   socket.emit("reset");
