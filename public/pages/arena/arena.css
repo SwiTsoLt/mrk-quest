@@ -121,7 +121,7 @@ img.background {
 }
 
 .entity.enemy > .health  {
-    left: 25%;
+    left: 35%;
     top: 0;
     transform: translateY(-50%);
 }
