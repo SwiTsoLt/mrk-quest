@@ -39,6 +39,17 @@ img.background {
     text-shadow: -8px 4px #303030;
 }
 
+/* Info */
+
+.info {
+    position: absolute;
+    right: 100px;
+    top: 100px;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 /* Arena */
 
 .arena {

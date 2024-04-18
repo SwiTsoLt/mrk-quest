@@ -274,3 +274,11 @@ math {
   font-size: 32px;
   font-weight: bold;
 }
+
+.result > p {
+  transition: opacity 0.8s ease-in-out;
+}
+
+.result > p.hide {
+  opacity: 0;
+}

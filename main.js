@@ -2,7 +2,6 @@ require("dotenv").config();
 const config = require("config");
 const express = require("express");
 const path = require("path");
-const url = require("url");
 
 const PORT = process.env.PORT ?? config.get("PORT");
 const STATIC_PATH = path.resolve(__dirname, "public");
@@ -18,7 +17,9 @@ const server = app.listen(PORT, "0.0.0.0", () => {
 // Socket IO
 
 const room = {
-  enemyHealth: 10000, 
+  enemyHealth: 1550,
+  errors: 0,
+  points: 0,
   arena: null,
   clients: {},
 };
@@ -27,6 +28,8 @@ function updateArena() {
   if (!room.arena) return;
 
   room.arena.emit("update", {
+    errors: room.errors,
+    points: room.points,
     enemyHealth: room.enemyHealth,
     clients: Object.keys(room.clients).reduce((clients, clientID) => {
       clients[clientID] = {
@@ -60,7 +63,7 @@ io.on("connection", (socket) => {
 
   socket.on("update-hero", (data) => {
     room.clients[socket.id] = {
-      ...socket,
+      ...room.clients[socket.id],
       ...data,
     };
     updateArena();
@@ -68,14 +71,21 @@ io.on("connection", (socket) => {
 
   socket.on("hero-attack", (data) => {
     room.enemyHealth -= 50 * Math.pow(2, data.level);
-    room.arena.emit("hero-attack", { id: socket.id, ...data });
+    room.points += data.level + 1;
     updateArena();
   });
 
   socket.on("enemy-attack", () => {
     room.clients[socket.id].health -= 10;
-    room.arena.emit("enemy-attack", socket.id);
+    room.errors += 1;
     updateArena();
+  });
+
+  socket.on("reset", () => {
+    room.enemyHealth = 1550;
+    room.clients = {};
+    room.errors = 0;
+    room.points = 0;
   });
 
   socket.on("disconnect", () => {

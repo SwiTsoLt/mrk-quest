@@ -7,23 +7,14 @@ socket.on("connect", () => {
   socket.emit("join-arena");
 });
 
-let enemyHealth = 1000;
-let clients = {};
+let enemyHealth = 1550;
 
 socket.on("update", (data) => {
   enemyHealth = data.enemyHealth;
-  clients = data.clients;
-  updateArena();
+  document.getElementById("points").innerText = data.points;
+  document.getElementById("errors").innerText = data.errors;
+  updateArena(data.clients);
 });
-
-socket.on("hero-attack", (data) => {
-
-});
-
-socket.on("enemy-attack", (clientID) => {
-
-});
-
 
 const AVATARS = [
   "../../image/creature/hero/0.png",
@@ -32,16 +23,16 @@ const AVATARS = [
   "../../image/creature/hero/3.png",
 ];
 
-function updateArena() {
+function updateArena(clients) {
   arena.clear();
 
-  if (!clients) return;
+  if (!Object.keys(clients ?? {}).length) return;
 
   const enemy = new Enemy({
     name: "Динозаврик",
     health: enemyHealth,
-    maxHealth: 10000,
-    avatarSrc: "../../image/creature/enemy/0.gif",
+    maxHealth: 1550,
+    avatarSrc: enemyHealth > 0 ? "../../image/creature/enemy/0.gif" : "../../image/creature/enemy/bum.gif",
     position: {
       x: `${window.innerWidth - 500}px`,
       y: `-40px`,
@@ -53,7 +44,7 @@ function updateArena() {
   });
 
   Object.keys(clients).forEach((clientID, index) => {
-    if (index % 2 !== 0 && clients[clientID].health > 0) {
+    if (index % 2 !== 0) {
       const hero = new Hero({
         id: clientID,
         name: clients[clientID].name,
@@ -71,15 +62,11 @@ function updateArena() {
       });
   
       arena.add(hero);
-    }
-  });
-
-  Object.keys(clients).forEach((clientID, index) => {
-    if (index % 2 === 0 && clients[clientID].health > 0) {
+    } else {
       const hero = new Hero({
         id: clientID,
         name: clients[clientID].name,
-        health: 100,
+        health: clients[clientID].health,
         maxHealth: 100,
         avatarSrc: AVATARS[clients[clientID].avatar],
         position: {
@@ -101,3 +88,7 @@ function updateArena() {
 
 window.addEventListener("resize", updateArena);
 updateArena();
+
+var Reset = function() {
+  socket.emit("reset");
+}

@@ -88,11 +88,6 @@ const QUESTIONS = [
             answer: 0,
         },
         {
-            question: "Произведение наибольшего целого отрицательного и наименьшего целого положительного решения неравенства <math><msup><mn>x</mn><mi>2</mi></msup><mo> < 9</mo></math>",
-            cases: ["3", "+-3", "1", "0", "хуйня, надо переделать"],
-            answer: 4,
-        },
-        {
             question: "Решить уравнение <math><mroot><mrow><mn>x + </mn><msup><mn>2</mn><mi style=\"color: transparent;\">2</mi></msup></mrow><mi></mi></mroot><mo> = -x</mo></math>",
             cases: ["0", "-1", "2", "1"],
             answer: 1,

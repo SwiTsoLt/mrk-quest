@@ -58,19 +58,33 @@ avatar_selector.addEventListener("change", event => {
 
 // Question
 
+let isReady = true;
+
 function onAnswer(event, level, answer) {
-    if (event.target.value.toString() === answer.toString()) {
-        result.innerHTML = "<p style='color:#15d118;'>Верно!</p>";
-        closeQuestion();
-        spell_buttons.querySelector(`button[value="${level}"]`).disabled = true;
-        window.navigator.vibrate([20, 20, 20]);
-        socket.emit("hero-attack", { level: +level });
-    } else {
-        result.innerHTML = "<p style='color:#bf3621;'>Неверно!</p>";
-        window.navigator.vibrate(150);
-        socket.emit("enemy-attack");
+    if (isReady) {
+        if (event.target.value.toString() === answer.toString()) {
+            result.innerHTML = "<p style='color:#15d118;'>Верно!</p>";
+            closeQuestion();
+            spell_buttons.querySelector(`button[value="${level}"]`).disabled = true;
+            window.navigator.vibrate([20, 20, 20]);
+            socket.emit("hero-attack", { level: +level });
+        } else {
+            result.innerHTML = "<p style='color:#bf3621;'>Неверно!</p>";
+            window.navigator.vibrate(150);
+            socket.emit("enemy-attack");
+        }
+
+        isReady = false;
+
+        setTimeout(() => {
+            isReady = true;
+        }, 400);
+
+        setTimeout(() => {
+            result.querySelector("p").classList.add("hide");
+        }, 1400);
     }
-}
+}result.innerHTML = "<p style='color:#bf3621;'>Неверно!</p>";
 
 function setQuestion(level) {
     result.innerHTML = "";
